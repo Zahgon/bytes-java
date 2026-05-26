@@ -18,11 +18,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package at.favre.lib.bytes;
 
 import java.util.List;
-
 import static at.favre.lib.bytes.BytesValidator.Logical.Operator.NOT;
 import static at.favre.lib.bytes.BytesValidator.Logical.Operator.OR;
 
@@ -43,11 +41,14 @@ public interface BytesValidator {
      * Validates for specific array length
      */
     final class Length implements BytesValidator {
+
         enum Mode {
+
             SMALLER_OR_EQ_THAN, GREATER_OR_EQ_THAN, EXACT
         }
 
         private final int refLength;
+
         private final Mode mode;
 
         public Length(int refLength, Mode mode) {
@@ -57,15 +58,7 @@ public interface BytesValidator {
 
         @Override
         public boolean validate(byte[] byteArrayToValidate) {
-            switch (mode) {
-                case GREATER_OR_EQ_THAN:
-                    return byteArrayToValidate.length >= refLength;
-                case SMALLER_OR_EQ_THAN:
-                    return byteArrayToValidate.length <= refLength;
-                default:
-                case EXACT:
-                    return byteArrayToValidate.length == refLength;
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -73,9 +66,11 @@ public interface BytesValidator {
      * Checks if a byte array contains only the same value
      */
     final class IdenticalContent implements BytesValidator {
+
         private final byte refByte;
 
         enum Mode {
+
             ONLY_OF, NONE_OF, NOT_ONLY_OF
         }
 
@@ -88,18 +83,7 @@ public interface BytesValidator {
 
         @Override
         public boolean validate(byte[] byteArrayToValidate) {
-            for (byte b : byteArrayToValidate) {
-                if (mode == Mode.NONE_OF && b == refByte) {
-                    return false;
-                }
-                if (mode == Mode.ONLY_OF && b != refByte) {
-                    return false;
-                }
-                if (mode == Mode.NOT_ONLY_OF && b != refByte) {
-                    return true;
-                }
-            }
-            return mode == Mode.NONE_OF || mode == Mode.ONLY_OF;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -109,6 +93,7 @@ public interface BytesValidator {
     final class PrePostFix implements BytesValidator {
 
         private final byte[] pfix;
+
         private final boolean startsWith;
 
         public PrePostFix(boolean startsWith, byte... pfix) {
@@ -118,19 +103,7 @@ public interface BytesValidator {
 
         @Override
         public boolean validate(byte[] byteArrayToValidate) {
-            if (pfix.length > byteArrayToValidate.length) {
-                return false;
-            }
-
-            for (int i = 0; i < pfix.length; i++) {
-                if (startsWith && pfix[i] != byteArrayToValidate[i]) {
-                    return false;
-                }
-                if (!startsWith && pfix[i] != byteArrayToValidate[byteArrayToValidate.length - pfix.length + i]) {
-                    return false;
-                }
-            }
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -138,7 +111,9 @@ public interface BytesValidator {
      * Logical operations over multiple validators
      */
     final class Logical implements BytesValidator {
+
         enum Operator {
+
             OR, AND, NOT
         }
 
@@ -157,24 +132,7 @@ public interface BytesValidator {
 
         @Override
         public boolean validate(byte[] byteArrayToValidate) {
-            if (operator == NOT) {
-                return !validatorList.get(0).validate(byteArrayToValidate);
-            }
-
-            boolean bool = operator != OR;
-            for (BytesValidator bytesValidator : validatorList) {
-                switch (operator) {
-                    case AND:
-                        bool &= bytesValidator.validate(byteArrayToValidate);
-                        break;
-                    default:
-                    case OR:
-                        bool |= bytesValidator.validate(byteArrayToValidate);
-                        break;
-                }
-            }
-            return bool;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
     }
 }

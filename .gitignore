@@ -37,3 +37,8 @@ keystore.jks
 ci-settings.xml
 secrets.tar
 pom.xml.versionsBackup
+
+.aider*
+logs/
+.commit0_scripts/
+.github/workflows/

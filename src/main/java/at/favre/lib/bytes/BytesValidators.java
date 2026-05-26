@@ -18,7 +18,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package at.favre.lib.bytes;
 
 import java.util.Arrays;
@@ -40,7 +39,7 @@ public final class BytesValidators {
      * @return validator that returns true if longer or equal to given value
      */
     public static BytesValidator atLeast(int byteLength) {
-        return new BytesValidator.Length(byteLength, BytesValidator.Length.Mode.GREATER_OR_EQ_THAN);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -50,7 +49,7 @@ public final class BytesValidators {
      * @return validator that returns true if smaller or equal to given value
      */
     public static BytesValidator atMost(int byteLength) {
-        return new BytesValidator.Length(byteLength, BytesValidator.Length.Mode.SMALLER_OR_EQ_THAN);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -60,7 +59,7 @@ public final class BytesValidators {
      * @return validator that returns true if equal to given value
      */
     public static BytesValidator exactLength(int byteLength) {
-        return new BytesValidator.Length(byteLength, BytesValidator.Length.Mode.EXACT);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -70,7 +69,7 @@ public final class BytesValidators {
      * @return validator that returns true if array only consists of refByte
      */
     public static BytesValidator onlyOf(byte refByte) {
-        return new BytesValidator.IdenticalContent(refByte, BytesValidator.IdenticalContent.Mode.ONLY_OF);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -80,7 +79,7 @@ public final class BytesValidators {
      * @return validator that returns true  if array has at least one byte that is not refByte
      */
     public static BytesValidator notOnlyOf(byte refByte) {
-        return new BytesValidator.IdenticalContent(refByte, BytesValidator.IdenticalContent.Mode.NOT_ONLY_OF);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -90,7 +89,7 @@ public final class BytesValidators {
      * @return validator that returns true all startsWithBytes match the first bytes in the internal array
      */
     public static BytesValidator startsWith(byte... startsWithBytes) {
-        return new BytesValidator.PrePostFix(true, startsWithBytes);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -100,7 +99,7 @@ public final class BytesValidators {
      * @return validator that returns true all startsWithBytes match the first bytes in the internal array
      */
     public static BytesValidator endsWith(byte... endsWithBytes) {
-        return new BytesValidator.PrePostFix(false, endsWithBytes);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -110,7 +109,7 @@ public final class BytesValidators {
      * @return validator that returns true if array has no value refByte
      */
     public static BytesValidator noneOf(byte refByte) {
-        return new BytesValidator.IdenticalContent(refByte, BytesValidator.IdenticalContent.Mode.NONE_OF);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -120,7 +119,7 @@ public final class BytesValidators {
      * @return validator that returns true if at least one validator returns true
      */
     public static BytesValidator or(BytesValidator... validators) {
-        return new BytesValidator.Logical(Arrays.asList(validators), BytesValidator.Logical.Operator.OR);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -130,7 +129,7 @@ public final class BytesValidators {
      * @return validator that returns true if all return true
      */
     public static BytesValidator and(BytesValidator... validators) {
-        return new BytesValidator.Logical(Arrays.asList(validators), BytesValidator.Logical.Operator.AND);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -140,6 +139,6 @@ public final class BytesValidators {
      * @return negated result
      */
     public static BytesValidator not(BytesValidator validator) {
-        return new BytesValidator.Logical(Collections.singletonList(validator), BytesValidator.Logical.Operator.NOT);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

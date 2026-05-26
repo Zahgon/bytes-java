@@ -18,7 +18,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package at.favre.lib.bytes;
 
 import java.io.IOException;
@@ -34,12 +33,15 @@ import java.util.Objects;
  * See: <a href="https://github.com/google/guava/blob/v26.0/guava/src/com/google/common/io/BaseEncoding.java">BaseEncoding</a>
  */
 final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
+
     private static final char ASCII_MAX = 127;
 
     static final Alphabet BASE32_RFC4848 = new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray());
+
     static final char BASE32_RFC4848_PADDING = '=';
 
     private final Alphabet alphabet;
+
     private final Character paddingChar;
 
     @SuppressWarnings("WeakerAccess")
@@ -54,7 +56,7 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
 
     @Override
     public String encode(byte[] array, ByteOrder byteOrder) {
-        return encode(array, 0, array.length);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private String encode(byte[] bytes, int off, int len) {
@@ -79,7 +81,8 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
         long bitBuffer = 0;
         for (int i = 0; i < len; ++i) {
             bitBuffer |= bytes[off + i] & 0xFF;
-            bitBuffer <<= 8; // Add additional zero byte in the end.
+            // Add additional zero byte in the end.
+            bitBuffer <<= 8;
         }
         // Position of first character is length of bitBuffer minus bitsPerChar.
         final int bitOffset = (len + 1) * 8 - alphabet.bitsPerChar;
@@ -117,10 +120,7 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
 
     @Override
     public byte[] decode(CharSequence encoded) {
-        encoded = trimTrailingPadding(encoded);
-        byte[] tmp = new byte[maxDecodedSize(encoded.length())];
-        int len = decodeTo(tmp, encoded);
-        return extract(tmp, len);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static byte[] extract(byte[] result, int length) {
@@ -155,18 +155,23 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
     }
 
     static final class Alphabet {
+
         // this is meant to be immutable -- don't modify it!
         private final char[] chars;
+
         final int mask;
+
         final int bitsPerChar;
+
         final int charsPerChunk;
+
         final int bytesPerChunk;
+
         private final byte[] decodabet;
 
         Alphabet(char[] chars) {
             this.chars = Objects.requireNonNull(chars);
             this.bitsPerChar = log2(chars.length);
-
             /*
              * e.g. for base64, bitsPerChar == 6, charsPerChunk == 4, and bytesPerChunk == 3. This makes
              * for the smallest chunk size that still has charsPerChunk * bitsPerChar be a multiple of 8.
@@ -175,7 +180,6 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
             this.charsPerChunk = 8 / gcd;
             this.bytesPerChunk = bitsPerChar / gcd;
             this.mask = chars.length - 1;
-
             byte[] decodabet = new byte[ASCII_MAX + 1];
             Arrays.fill(decodabet, (byte) -1);
             for (int i = 0; i < chars.length; i++) {
@@ -186,18 +190,18 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
         }
 
         char encode(int bits) {
-            return chars[bits];
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         int decode(char ch) {
-            return decodabet[ch];
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
     private static int divide(int p, int q) {
         int div = p / q;
-        int rem = p - q * div; // equal to p % q
-
+        // equal to p % q
+        int rem = p - q * div;
         if (rem == 0) {
             return div;
         }

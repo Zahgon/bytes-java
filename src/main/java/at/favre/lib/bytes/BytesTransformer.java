@@ -18,7 +18,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package at.favre.lib.bytes;
 
 import java.nio.ByteOrder;
@@ -30,6 +29,7 @@ import java.util.Objects;
  * Interface for transforming {@link Bytes}
  */
 public interface BytesTransformer {
+
     /**
      * Transform given victim in place, overwriting its internal byte array
      *
@@ -54,10 +54,12 @@ public interface BytesTransformer {
     final class BitWiseOperatorTransformer implements BytesTransformer {
 
         public enum Mode {
+
             AND, OR, XOR
         }
 
         private final byte[] secondArray;
+
         private final Mode mode;
 
         BitWiseOperatorTransformer(byte[] secondArray, Mode mode) {
@@ -67,33 +69,12 @@ public interface BytesTransformer {
 
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            if (currentArray.length != secondArray.length) {
-                throw new IllegalArgumentException("all byte array must be of same length doing bit wise operation");
-            }
-
-            byte[] out = inPlace ? currentArray : new byte[currentArray.length];
-
-            for (int i = 0; i < currentArray.length; i++) {
-                switch (mode) {
-                    case AND:
-                        out[i] = (byte) (currentArray[i] & secondArray[i]);
-                        break;
-                    case XOR:
-                        out[i] = (byte) (currentArray[i] ^ secondArray[i]);
-                        break;
-                    default:
-                    case OR:
-                        out[i] = (byte) (currentArray[i] | secondArray[i]);
-                        break;
-                }
-            }
-
-            return out;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -103,20 +84,15 @@ public interface BytesTransformer {
      * @see <a href="https://en.wikipedia.org/wiki/Bitwise_operation#NOT">Bitwise operators: NOT</a>
      */
     final class NegateTransformer implements BytesTransformer {
+
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            byte[] out = inPlace ? currentArray : Bytes.from(currentArray).array();
-
-            for (int i = 0; i < out.length; i++) {
-                out[i] = (byte) ~out[i];
-            }
-
-            return out;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -126,12 +102,16 @@ public interface BytesTransformer {
      * @see <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bit_shifts">Bit shifts</a>
      */
     final class ShiftTransformer implements BytesTransformer {
+
         public enum Type {
+
             LEFT_SHIFT, RIGHT_SHIFT
         }
 
         private final int shiftCount;
+
         private final Type type;
+
         private final ByteOrder byteOrder;
 
         ShiftTransformer(int shiftCount, Type type, ByteOrder byteOrder) {
@@ -142,20 +122,12 @@ public interface BytesTransformer {
 
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            byte[] out = inPlace ? currentArray : Bytes.from(currentArray).array();
-
-            switch (type) {
-                case RIGHT_SHIFT:
-                    return Util.Byte.shiftRight(out, shiftCount, byteOrder);
-                default:
-                case LEFT_SHIFT:
-                    return Util.Byte.shiftLeft(out, shiftCount, byteOrder);
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -165,6 +137,7 @@ public interface BytesTransformer {
      * @see <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators">Bitwise operation</a>
      */
     final class ConcatTransformer implements BytesTransformer {
+
         private final byte[] secondArray;
 
         ConcatTransformer(byte[] secondArrays) {
@@ -173,12 +146,12 @@ public interface BytesTransformer {
 
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            return Util.Byte.concat(currentArray, secondArray);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return false;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -186,16 +159,15 @@ public interface BytesTransformer {
      * Reverses the internal byte array
      */
     final class ReverseTransformer implements BytesTransformer {
+
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            byte[] out = inPlace ? currentArray : Bytes.from(currentArray).array();
-            Util.Byte.reverse(out, 0, out.length);
-            return out;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -203,7 +175,9 @@ public interface BytesTransformer {
      * Creates a new instance with a copy of the internal byte array and all other attributes.
      */
     final class CopyTransformer implements BytesTransformer {
+
         final int offset;
+
         final int length;
 
         CopyTransformer(int offset, int length) {
@@ -213,14 +187,12 @@ public interface BytesTransformer {
 
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            byte[] copy = new byte[length];
-            System.arraycopy(currentArray, offset, copy, 0, copy.length);
-            return copy;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return false;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -235,12 +207,14 @@ public interface BytesTransformer {
      * keeping the value the same.
      */
     final class ResizeTransformer implements BytesTransformer {
+
         public enum Mode {
-            RESIZE_KEEP_FROM_ZERO_INDEX,
-            RESIZE_KEEP_FROM_MAX_LENGTH
+
+            RESIZE_KEEP_FROM_ZERO_INDEX, RESIZE_KEEP_FROM_MAX_LENGTH
         }
 
         private final int newSize;
+
         private final Mode mode;
 
         ResizeTransformer(int newSize, Mode mode) {
@@ -250,38 +224,12 @@ public interface BytesTransformer {
 
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            if (currentArray.length == newSize) {
-                return currentArray;
-            }
-
-            if (newSize < 0) {
-                throw new IllegalArgumentException("cannot resize to smaller than 0");
-            }
-
-            if (newSize == 0) {
-                return new byte[0];
-            }
-
-            byte[] resizedArray = new byte[newSize];
-
-            if (mode == Mode.RESIZE_KEEP_FROM_MAX_LENGTH) {
-                int max = Math.max(0, Math.abs(newSize - currentArray.length));
-
-                if (newSize > currentArray.length) {
-                    System.arraycopy(currentArray, 0, resizedArray, max, currentArray.length);
-                } else {
-                    System.arraycopy(currentArray, max, resizedArray, 0, newSize);
-                }
-            } else {
-                System.arraycopy(currentArray, 0, resizedArray, 0, Math.min(currentArray.length, resizedArray.length));
-            }
-
-            return resizedArray;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return false;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -289,7 +237,9 @@ public interface BytesTransformer {
      * Switches bits on specific position of an array
      */
     class BitSwitchTransformer implements BytesTransformer {
+
         private final int position;
+
         private final Boolean newBitValue;
 
         BitSwitchTransformer(int position, Boolean newBitValue) {
@@ -299,26 +249,12 @@ public interface BytesTransformer {
 
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            byte[] out = inPlace ? currentArray : Bytes.from(currentArray).array();
-
-            if (position < 0 || position >= 8 * currentArray.length) {
-                throw new IllegalArgumentException("bit index " + (position * 8) + " out of bounds");
-            }
-
-            int bytePosition = currentArray.length - 1 - position / 8;
-            if (newBitValue == null) {
-                out[bytePosition] ^= (1 << position % 8);
-            } else if (newBitValue) {
-                out[bytePosition] |= (1 << position % 8);
-            } else {
-                out[bytePosition] &= ~(1 << position % 8);
-            }
-            return out;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return true;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -326,8 +262,11 @@ public interface BytesTransformer {
      * Converts to hash
      */
     class MessageDigestTransformer implements BytesTransformer {
+
         static final String ALGORITHM_MD5 = "MD5";
+
         static final String ALGORITHM_SHA_1 = "SHA-1";
+
         static final String ALGORITHM_SHA_256 = "SHA-256";
 
         private final MessageDigest messageDigest;
@@ -342,13 +281,12 @@ public interface BytesTransformer {
 
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
-            messageDigest.update(currentArray);
-            return messageDigest.digest();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean supportInPlaceTransformation() {
-            return false;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 }

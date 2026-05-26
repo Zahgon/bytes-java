@@ -18,7 +18,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package at.favre.lib.bytes;
 
 import java.nio.ByteOrder;
@@ -45,7 +44,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @return new instance
      */
     public static MutableBytes allocate(int length) {
-        return allocate(length, (byte) 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -56,12 +55,12 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @return new instance
      */
     public static MutableBytes allocate(int length, byte defaultValue) {
-        return Bytes.allocate(length, defaultValue).mutable();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean isMutable() {
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -72,7 +71,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @throws IndexOutOfBoundsException if newArray.length() &gt; internal length
      */
     public MutableBytes overwrite(byte[] newArray) {
-        return overwrite(newArray, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -83,7 +82,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @throws IndexOutOfBoundsException if newArray.length() &gt; internal length
      */
     public MutableBytes overwrite(Bytes newBytes) {
-        return overwrite(newBytes, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -95,9 +94,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @throws IndexOutOfBoundsException if newArray.length() + offsetInternalArray &gt; internal length
      */
     public MutableBytes overwrite(byte[] newArray, int offsetInternalArray) {
-        Objects.requireNonNull(newArray, "must provide non-null array as source");
-        System.arraycopy(newArray, 0, internalArray(), offsetInternalArray, newArray.length);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -109,7 +106,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @throws IndexOutOfBoundsException if newBytes.length() + offsetInternalArray &gt; internal length
      */
     public MutableBytes overwrite(Bytes newBytes, int offsetInternalArray) {
-        return overwrite(Objects.requireNonNull(newBytes, "must provide non-null array as source").array(), offsetInternalArray);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -120,8 +117,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @return this instance
      */
     public MutableBytes setByteAt(int index, byte newByte) {
-        internalArray()[index] = newByte;
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -130,7 +126,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @return this instance
      */
     public MutableBytes wipe() {
-        return fill((byte) 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -140,8 +136,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @return this instance
      */
     public MutableBytes fill(byte fillByte) {
-        Arrays.fill(internalArray(), fillByte);
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -150,7 +145,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @return this instance
      */
     public MutableBytes secureWipe() {
-        return secureWipe(new SecureRandom());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -160,11 +155,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @return this instance
      */
     public MutableBytes secureWipe(SecureRandom random) {
-        Objects.requireNonNull(random, "random param must not be null");
-        if (length() > 0) {
-            random.nextBytes(internalArray());
-        }
-        return this;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -175,31 +166,32 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * @return immutable version of this instance
      */
     public Bytes immutable() {
-        return Bytes.wrap(internalArray(), byteOrder());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return Util.Obj.hashCode(internalArray(), byteOrder());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object o) {
-        return super.equals(o);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public void close() {
-        secureWipe();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Factory creating mutable byte types
      */
     private static class Factory implements BytesFactory {
+
         @Override
         public Bytes wrap(byte[] array, ByteOrder byteOrder) {
-            return new MutableBytes(array, byteOrder);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 }

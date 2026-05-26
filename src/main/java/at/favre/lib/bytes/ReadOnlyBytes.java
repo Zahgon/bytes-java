@@ -18,7 +18,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package at.favre.lib.bytes;
 
 import java.nio.ByteOrder;
@@ -45,21 +44,22 @@ public final class ReadOnlyBytes extends Bytes {
 
     @Override
     public boolean isReadOnly() {
-        return true;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public byte[] array() {
-        throw new ReadOnlyBufferException();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
      * Factory creating mutable byte types
      */
     private static class Factory implements BytesFactory {
+
         @Override
         public Bytes wrap(byte[] array, ByteOrder byteOrder) {
-            return new ReadOnlyBytes(array, byteOrder);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 }
